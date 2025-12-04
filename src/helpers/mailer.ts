@@ -30,20 +30,44 @@ export const sendEmail = async ({ email, emailType, userId }: any) => {
       },
     });
 
+    // Prepare mail options based on email type
     const mailOptions = {
       from: "sahil@gmail.com",
       to: email,
-      subject:
-        emailType === "VERIFY" ? "Verify your email" : "Reset your password",
-      html: `<p>Click <a href="${
-        process.env.domain
-      }/verifyemail?token=${hashedToken}">here</a> to ${
-        emailType === "VERIFY" ? "verify your email" : "reset your password"
-      } or copy and paste the link below in your browser: <br /> ${
-        process.env.domain
-      }/verifyemail?token=${hashedToken}
-            .</p>`,
+      subject: "",
+      html: "",
     };
+
+    if (emailType === "VERIFY") {
+      const verifyUrl = `${process.env.DOMAIN}/verifyemail?token=${hashedToken}`;
+      mailOptions.subject = "Verify your email";
+      mailOptions.html = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2>Email Verification</h2>
+          <p>Thank you for signing up! Please verify your email address to continue.</p>
+          <p>Click the button below to verify your email:</p>
+          <a href="${verifyUrl}" style="display: inline-block; padding: 12px 24px; background-color: #4F46E5; color: white; text-decoration: none; border-radius: 6px; margin: 16px 0;">Verify Email</a>
+          <p>Or copy and paste this link in your browser:</p>
+          <p style="color: #666; word-break: break-all;">${verifyUrl}</p>
+          <p style="color: #999; font-size: 12px; margin-top: 24px;">This link will expire in 1 hour.</p>
+        </div>
+      `;
+    } else if (emailType === "RESET") {
+      const resetUrl = `${process.env.DOMAIN}/reset-password?token=${hashedToken}`;
+      mailOptions.subject = "Reset Your Password";
+      mailOptions.html = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2>Password Reset Request</h2>
+          <p>We received a request to reset your password. Click the button below to reset it:</p>
+          <a href="${resetUrl}" style="display: inline-block; padding: 12px 24px; background-color: #EA580C; color: white; text-decoration: none; border-radius: 6px; margin: 16px 0;">Reset Password</a>
+          <p>Or copy and paste this link in your browser:</p>
+          <p style="color: #666; word-break: break-all;">${resetUrl}</p>
+          <p style="color: #999; font-size: 12px; margin-top: 24px;">This link will expire in 1 hour.</p>
+          <p style="color: #999; font-size: 12px;">If you didn't request this password reset, please ignore this email. Your password will remain unchanged.</p>
+        </div>
+      `;
+    }
+
     const mailresponse = await transport.sendMail(mailOptions);
     return mailresponse;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
