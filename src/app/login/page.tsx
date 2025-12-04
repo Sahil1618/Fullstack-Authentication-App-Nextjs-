@@ -39,37 +39,82 @@ export default function LoginPage() {
   }, [user]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      <h1>{loading ? "Processing" : "Login"}</h1>
-      <hr />
+    <div className="flex flex-col items-center justify-center min-h-screen py-8 px-4 bg-black text-gray-100">
+      <div className="w-full max-w-sm bg-zinc-900 p-8 rounded-xl shadow-lg border border-zinc-800">
+        <h1 className="text-3xl font-semibold text-center mb-6">
+          {loading ? "Processing..." : "Login"}
+        </h1>
 
-      <label htmlFor="email">email</label>
-      <input
-        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
-        id="email"
-        type="text"
-        value={user.email}
-        onChange={(e) => setUser({ ...user, email: e.target.value })}
-        placeholder="email"
-      />
-      <label htmlFor="password">password</label>
-      <input
-        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
-        id="password"
-        type="text"
-        value={user.password}
-        onChange={(e) => setUser({ ...user, password: e.target.value })}
-        placeholder="password"
-      />
-      <button
-        onClick={onLogin}
-        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600"
-      >
-        {" "}
-        Login
-        {/* {buttonDisabled ? "No signup" : "Signup"} */}
-      </button>
-      <Link href="/signup">Dont have an account? Signup here</Link>
+        <div className="flex flex-col gap-4">
+          {/* Email */}
+          <div className="flex flex-col gap-1">
+            <label
+              htmlFor="email"
+              className="text-sm font-medium text-gray-300"
+            >
+              Email
+            </label>
+            <input
+              id="email"
+              type="email"
+              value={user.email}
+              onChange={(e) => setUser({ ...user, email: e.target.value })}
+              placeholder="Enter your email"
+              className="p-2.5 bg-zinc-800 border border-zinc-700 rounded-lg text-gray-200
+                     placeholder-gray-500 focus:outline-none focus:border-blue-500 
+                     focus:ring-2 focus:ring-blue-600/40 transition"
+            />
+          </div>
+
+          {/* Password */}
+          <div className="flex flex-col gap-1">
+            <label
+              htmlFor="password"
+              className="text-sm font-medium text-gray-300"
+            >
+              Password
+            </label>
+            <input
+              id="password"
+              type="password"
+              value={user.password}
+              onChange={(e) => setUser({ ...user, password: e.target.value })}
+              placeholder="Enter your password"
+              className="p-2.5 bg-zinc-800 border border-zinc-700 rounded-lg text-gray-200
+                     placeholder-gray-500 focus:outline-none focus:border-blue-500 
+                     focus:ring-2 focus:ring-blue-600/40 transition"
+            />
+          </div>
+        </div>
+
+        {/* Buttons */}
+        <div className="flex gap-3 justify-center mt-6">
+          <button
+            onClick={onLogin}
+            className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg 
+                 shadow hover:bg-blue-700 active:scale-95 transition disabled:opacity-50"
+          >
+            Login
+          </button>
+
+          <button
+            className="px-4 py-2 bg-orange-500 text-black text-sm font-medium rounded-lg 
+                   shadow hover:bg-orange-600 active:scale-95 transition"
+          >
+            Forgot Password
+          </button>
+        </div>
+
+        {/* Link */}
+        <p className="text-center text-sm mt-6">
+          <Link
+            className="text-blue-400 hover:text-blue-300 underline underline-offset-2 transition"
+            href="/signup"
+          >
+            Dont have an account? Sign up here
+          </Link>
+        </p>
+      </div>
     </div>
   );
 }
