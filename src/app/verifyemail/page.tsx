@@ -31,7 +31,7 @@ export default function VerifyEmailPage() {
         // Redirect to profile after 2 seconds
         setTimeout(() => {
           router.push("/profile");
-        }, 5000);
+        }, 3000);
       } catch (error: any) {
         setError(true);
         toast.error(error.response?.data?.error || "Verification failed");
@@ -84,7 +84,7 @@ export default function VerifyEmailPage() {
               Your email has been successfully verified.
             </p>
             <p className="text-xs text-gray-500 text-center">
-              Redirecting to your profile...
+              Redirecting to your profile in 3 seconds...
             </p>
             <Link
               href="/profile"
