@@ -52,6 +52,11 @@ export default function RootLayout({
           }}
         />
         {children}
+        <footer className="w-full py-4 border-t border-gray-800 bg-[#0a0a0a]/80 backdrop-blur-md">
+          <div className="max-w-5xl mx-auto text-center text-gray-400 text-sm">
+            © {new Date().getFullYear()} Sahil's App — All rights reserved.
+          </div>
+        </footer>
       </body>
     </html>
   );
