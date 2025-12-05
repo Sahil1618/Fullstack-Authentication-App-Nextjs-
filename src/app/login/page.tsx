@@ -97,23 +97,28 @@ export default function LoginPage() {
             Login
           </button>
 
-          <button
-            className="px-4 py-2 bg-orange-500 text-black text-sm font-medium rounded-lg 
+          <Link href="/forgot-password">
+            <button
+              className="px-4 py-2 bg-orange-500 text-black text-sm font-medium rounded-lg 
                    shadow hover:bg-orange-600 active:scale-95 transition"
-          >
-            Forgot Password
-          </button>
+            >
+              Forgot Password
+            </button>
+          </Link>
         </div>
 
         {/* Link */}
-        <p className="text-center text-sm mt-6">
-          <Link
-            className="text-blue-400 hover:text-blue-300 underline underline-offset-2 transition"
-            href="/signup"
-          >
-            Dont have an account? Sign up here
-          </Link>
-        </p>
+        <div className="mt-6 pt-6 border-t border-zinc-800">
+          <p className="text-center text-sm text-gray-500">
+            Don't have an account?{" "}
+            <Link
+              href="/signup"
+              className="text-blue-400 hover:text-blue-300 underline underline-offset-2 transition"
+            >
+              Signup here
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );

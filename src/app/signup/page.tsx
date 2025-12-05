@@ -47,8 +47,8 @@ export default function SignupPage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-8 px-4 bg-black text-gray-100">
       <div className="w-full max-w-sm bg-zinc-900 p-8 rounded-xl shadow-lg border border-zinc-800">
-        <h1 className="text-2xl font-semibold text-center mb-6">
-          {loading ? "Processing..." : "Sign Up"}
+        <h1 className="text-3xl font-semibold text-center mb-6">
+          {loading ? "Signing up..." : "Sign Up"}
         </h1>
 
         <div className="flex flex-col gap-4">
@@ -67,7 +67,7 @@ export default function SignupPage() {
               onChange={(e) => setUser({ ...user, username: e.target.value })}
               placeholder="Enter a username"
               className="p-2.5 bg-zinc-800 border border-zinc-700 rounded-lg text-gray-200
-                     placeholder-gray-500 focus:outline-none focus:border-blue-500 
+                     placeholder-gray-500 focus:outline-none focus:border-blue-500
                      focus:ring-2 focus:ring-blue-600/40 transition"
             />
           </div>
@@ -87,7 +87,7 @@ export default function SignupPage() {
               onChange={(e) => setUser({ ...user, email: e.target.value })}
               placeholder="Enter your email"
               className="p-2.5 bg-zinc-800 border border-zinc-700 rounded-lg text-gray-200
-                     placeholder-gray-500 focus:outline-none focus:border-blue-500 
+                     placeholder-gray-500 focus:outline-none focus:border-blue-500
                      focus:ring-2 focus:ring-blue-600/40 transition"
             />
           </div>
@@ -107,7 +107,7 @@ export default function SignupPage() {
               onChange={(e) => setUser({ ...user, password: e.target.value })}
               placeholder="Create a password"
               className="p-2.5 bg-zinc-800 border border-zinc-700 rounded-lg text-gray-200
-                     placeholder-gray-500 focus:outline-none focus:border-blue-500 
+                     placeholder-gray-500 focus:outline-none focus:border-blue-500
                      focus:ring-2 focus:ring-blue-600/40 transition"
             />
           </div>
@@ -117,22 +117,25 @@ export default function SignupPage() {
         <button
           onClick={onSignup}
           disabled={buttonDisabled}
-          className="w-full mt-6 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg 
-                 shadow hover:bg-blue-700 active:scale-95 transition 
+          className="w-full mt-6 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg
+                 shadow hover:bg-blue-700 active:scale-95 transition
                  disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {buttonDisabled ? "Fill all fields" : "Sign Up"}
         </button>
 
         {/* Login Link */}
-        <p className="text-center text-sm mt-6">
-          <Link
-            className="text-blue-400 hover:text-blue-300 underline underline-offset-2 transition"
-            href="/login"
-          >
-            Already have an account? Login
-          </Link>
-        </p>
+        <div className="mt-6 pt-6 border-t border-zinc-800">
+          <p className="text-center text-sm text-gray-500">
+            Already have an account?{" "}
+            <Link
+              href="/login"
+              className="text-blue-400 hover:text-blue-300 underline underline-offset-2 transition"
+            >
+              Login here
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );

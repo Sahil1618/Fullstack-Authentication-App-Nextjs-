@@ -1,5 +1,6 @@
-import { connect } from "@/dbConfig/dbConfig";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextRequest, NextResponse } from "next/server";
+import { connect } from "@/dbConfig/dbConfig";
 import User from "@/models/userModel";
 
 connect();
@@ -8,7 +9,8 @@ export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json();
     const { token } = reqBody;
-    console.log("Received token:", token);
+
+    console.log("Verifying token:", token);
 
     const user = await User.findOne({
       verifyToken: token,
@@ -17,10 +19,11 @@ export async function POST(request: NextRequest) {
 
     if (!user) {
       return NextResponse.json(
-        { success: false, message: "Invalid or expired token" },
+        { error: "Invalid or expired token" },
         { status: 400 }
       );
     }
+
     console.log("User found:", user);
 
     user.isVerified = true;
@@ -28,14 +31,11 @@ export async function POST(request: NextRequest) {
     user.verifyTokenExpiry = undefined;
     await user.save();
 
-    return NextResponse.json(
-      { success: true, message: "Email verified successfully" },
-      { status: 200 }
-    );
-  } catch (error) {
-    return NextResponse.json(
-      { success: false, message: "Internal Server Error" },
-      { status: 500 }
-    );
+    return NextResponse.json({
+      message: "Email verified successfully",
+      success: true,
+    });
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
