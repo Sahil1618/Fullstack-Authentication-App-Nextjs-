@@ -1,12 +1,11 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { toast } from "react-hot-toast";
 
-export default function VerifyEmailPage() {
+function VerifyEmailContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
@@ -28,10 +27,9 @@ export default function VerifyEmailPage() {
         setVerified(true);
         toast.success("Email verified successfully!");
 
-        // Redirect to profile after 2 seconds
         setTimeout(() => {
           router.push("/profile");
-        }, 3000);
+        }, 2000);
       } catch (error: any) {
         setError(true);
         toast.error(error.response?.data?.error || "Verification failed");
@@ -84,7 +82,7 @@ export default function VerifyEmailPage() {
               Your email has been successfully verified.
             </p>
             <p className="text-xs text-gray-500 text-center">
-              Redirecting to your profile in 3 seconds...
+              Redirecting to your profile...
             </p>
             <Link
               href="/profile"
@@ -148,4 +146,23 @@ export default function VerifyEmailPage() {
   }
 
   return null;
+}
+
+export default function VerifyEmailPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex flex-col items-center justify-center min-h-screen py-8 px-4 bg-black text-gray-100">
+          <div className="w-full max-w-sm bg-zinc-900 p-8 rounded-xl shadow-lg border border-zinc-800">
+            <div className="flex flex-col items-center gap-4">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+              <p className="text-gray-400">Loading...</p>
+            </div>
+          </div>
+        </div>
+      }
+    >
+      <VerifyEmailContent />
+    </Suspense>
+  );
 }
